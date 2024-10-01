@@ -2,6 +2,7 @@ import { Navigate } from "react-router-dom";
 
 import Avatar from "pages/Avatar/Avatar";
 import Login from "pages/Login/Login";
+import SignUp from "pages/Signup/SignUp";
 
 export const authRoutes = [
   {
@@ -13,6 +14,11 @@ export const authRoutes = [
     path: "/login",
     component: <Login />,
     title: "Login",
+  },
+  {
+    path: "/signup",
+    component: <SignUp />,
+    title: "Signup",
   },
 ];
 

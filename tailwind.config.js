@@ -8,6 +8,7 @@ module.exports = {
       "secondary-black": "#00000076 ",
       "primary-purple": "#4e0eff",
       "secondary-purple": "#997af0",
+      "primary-white": "#ffffff",
     },
   },
   plugins: [],
