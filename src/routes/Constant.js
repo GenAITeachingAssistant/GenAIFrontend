@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 
-import Avatar from "pages/Avatar";
-import Login from "pages/Login";
+import Avatar from "pages/Avatar/Avatar";
+import Login from "pages/Login/Login";
 
 export const authRoutes = [
   {

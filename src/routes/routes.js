@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 
 import ProtectedRoutes from "routes/ProtectedRoutes";
 import { authRoutes, protectedRoutes } from "routes/constants";
-import NotFound404 from "pages/NotFound";
+import NotFound404 from "pages/NotFound/NotFound";
 
 const Router = () => {
   return (
