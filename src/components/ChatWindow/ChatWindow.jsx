@@ -1,0 +1,62 @@
+import ChatInput from "components/Input/ChatInput";
+import { capitalize } from "utils/capitalize";
+
+import robot from "assets/animations/robot.gif";
+import { ClipLoader } from "react-spinners";
+
+function ChatWindow({
+  selectedConversation,
+  studentResponse,
+  setStudentResponse,
+  conversation,
+  isLoadingConversation,
+}) {
+  if (!selectedConversation) {
+    return (
+      <div className="flex flex-col h-[100vh] w-full items-center justify-center">
+        <img src={robot} className="w-100" alt="robot" />
+        <span className="text-[1.6rem]">
+          Select or create a new conversation.
+        </span>
+      </div>
+    );
+  }
+
+  return (
+    <div className="relative w-full pb-16 h-[100vh] flex flex-col">
+      <div className="flex items-center justify-between px-24 py-8 gap-8">
+        <p className="text-primary-teal text-[2rem] line-clamp-1">
+          {capitalize(selectedConversation.name)}
+        </p>
+      </div>
+
+      {isLoadingConversation && (
+        <div className="flex justify-center pt-6">
+          <ClipLoader color="#1dbbc3" size={40} />
+        </div>
+      )}
+
+      {!isLoadingConversation && (
+        <div className="overflow-auto pb-8 px-24">
+          {conversation?.messages?.map((message, index) => (
+            <div key={index}>
+              <p>{message.content}</p>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="absolute left-24 right-24 bottom-8">
+        <ChatInput
+          name="studentResponse"
+          type="text"
+          placeholder="Type your message here"
+          value={studentResponse}
+          onChange={(e) => setStudentResponse(e.target.value)}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default ChatWindow;

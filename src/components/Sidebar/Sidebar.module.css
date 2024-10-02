@@ -1,0 +1,19 @@
+.sidebarGradient {
+  background: linear-gradient(
+    178deg,
+    #082c66 0.1%,
+    #003d73 47.98%,
+    #026e8e 79.33%,
+    #067591 100%
+  );
+}
+
+.chatLink.active {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.chatLink:hover {
+  cursor: pointer;
+  transition: all 0.3s ease-out;
+  background-color: rgba(255, 255, 255, 0.1);
+}
