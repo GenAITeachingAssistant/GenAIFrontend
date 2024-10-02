@@ -28,9 +28,8 @@ function Signup() {
         data: userData,
       });
 
-      if (data.status) {
+      if (data.success) {
         toast.success("Logged in successfully");
-
         navigate("/login");
       }
     } catch (error) {

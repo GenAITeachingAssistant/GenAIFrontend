@@ -32,7 +32,7 @@ function Login() {
 
         toast.success("Logged in successfully");
 
-        if (data.user.avatar) navigate("/dashboard");
+        if (data.user.avatarImage) navigate("/dashboard");
         else navigate("/avatar");
       }
     } catch (error) {

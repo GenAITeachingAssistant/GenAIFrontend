@@ -47,7 +47,7 @@ function Form({ userData, setUserData, login, isLoading }) {
           Don't have an account?{" "}
           <span
             className="text-primary-teal cursor-pointer"
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/signup")}
           >
             Signup
           </span>
