@@ -8,7 +8,7 @@ function NotFound() {
   const navigate = useNavigate();
   return (
     <div className="flex flex-col h-[100vh] justify-between overflow-hidden">
-      <div className="flex gap-[1rem] items-center justify-around">
+      <div className="flex gap-[1rem] items-center justify-around pt-6">
         <img src={notFound} alt="notFound" className="w-[32rem] h-[30rem]" />
         <div className="flex flex-col items-center gap-2">
           <span className="text-primary-teal text-[4rem] font-bold">
