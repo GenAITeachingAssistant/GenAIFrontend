@@ -1,41 +1,52 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-import Input from "components/Input/Input";
-import Button from "components/Button/button";
+import restClient from "restClient";
+import Form from "pages/Login/Form";
 
-import Logo from "assets/logo.svg";
+import wave from "assets/svg/wave.svg";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const [userData, setUserData] = useState({
+    email: "",
+    password: "",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const login = async () => {
+    try {
+      setIsLoading(true);
+
+      const { data } = await restClient({
+        method: "POST",
+        url: "/auth/login",
+        data: userData,
+      });
+
+      if (data.success) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userData", JSON.stringify(data.user));
+
+        toast.success("Logged in successfully");
+
+        if (data.user.avatar) navigate("/dashboard");
+        else navigate("/avatar");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <div className="h-screen w-screen flex flex-col justify-center items-center gap-4 bg-primary-black">
-      <div className="flex flex-col gap-8 bg-secondary-black rounded-2xl p-12">
-        <div className="flex items-center gap-4 justify-center">
-          <img src={Logo} alt="logo" className="h-20" />
-          <h1 className="text-primary-white uppercase">Chat App</h1>
-        </div>
-        <Input
-          type="text"
-          placeholder="Username"
-          name="username"
-          onChange={(e) => {}}
-        />
-        <Input
-          type="password"
-          placeholder="Password"
-          name="password"
-          onChange={(e) => {}}
-        />
-        <Button type="submit" innerText="Login" />
-      </div>
-      <span className="text-primary-white uppercase">
-        Don't have an account ?{" "}
-        <Link
-          to="/signup"
-          className="text-primary-purple no-underline font-bold"
-        >
-          Signup
-        </Link>
-      </span>
+    <div className="flex flex-col h-[100vh]">
+      <Form {...{ userData, setUserData, login, isLoading }} />
+      <img src={wave} alt="" />
     </div>
   );
 }

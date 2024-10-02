@@ -1,11 +1,13 @@
-function Input({ type, placeholder, onChange, name }) {
+function Input({ type, placeholder, onChange, name, required, value }) {
   return (
     <input
-      type={type}
-      placeholder={placeholder}
       name={name}
+      type={type}
+      value={value}
       onChange={onChange}
-      className="bg-transparent p-4 border border-primary-purple rounded-md text-white w-full text-base focus:border-secondary focus:outline-none"
+      required={required}
+      placeholder={placeholder}
+      className="rounded-[0.6rem] px-[1rem] py-[0.8rem] border-[1px] border-primary-black"
     />
   );
 }
