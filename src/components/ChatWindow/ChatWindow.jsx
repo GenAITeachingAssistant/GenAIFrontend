@@ -37,9 +37,16 @@ function ChatWindow({
       )}
 
       {!isLoadingConversation && (
-        <div className="overflow-auto pb-8 px-24">
+        <div className="overflow-auto pb-8 px-24 flex flex-col gap-4">
           {conversation?.messages?.map((message, index) => (
-            <div key={index}>
+            <div
+              key={index}
+              className={`px-4 py-2 rounded-md max-w-[60%] ${
+                message.role === "user"
+                  ? "bg-primary-teal text-primary-white ml-auto"
+                  : "bg-secondary-white text-secondary-black mr-auto"
+              }`}
+            >
               <p>{message.content}</p>
             </div>
           ))}

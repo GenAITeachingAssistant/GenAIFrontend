@@ -35,7 +35,7 @@ function Sidebar({
         <img
           src={
             avatars[
-              userData.avatarImage.charAt(userData.avatarImage.length - 1)
+              userData.avatarImage.charAt(userData.avatarImage.length - 1) - 1
             ]
           }
           alt="avatar"
