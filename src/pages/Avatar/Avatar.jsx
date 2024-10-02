@@ -1,40 +1,40 @@
-import Button from "components/Button/button";
 import { useState } from "react";
 
-export const avatars = [
-  "avataaars-1.svg",
-  "avataaars-2.svg",
-  "avataaars-3.svg",
-  "avataaars-4.svg",
-];
+import { avatars } from "constants/avatars";
+import wave from "assets/svg/wave.svg";
+import Button from "components/Button/Button";
 
 function Avatar() {
   const [selectedAvatar, setSelectedAvatar] = useState("");
+
   return (
-    <div className="flex flex-col justify-center items-center gap-12 bg-[#131324] h-screen w-screen">
-      <div className="text-primary-white">
-        <h1>Pick an avatar as your profile picture</h1>
-      </div>
-      <div className="flex gap-[2rem]">
-        {avatars.map((avatar, index) => {
-          return (
-            <div
+    <div className="flex flex-col justify-between h-[100vh]">
+      <div className="flex flex-col justify-center items-center pt-[2rem] gap-8">
+        <p className="text-secondary-black font-semibold text-[4.4rem]">
+          Pick an Avatar{" "}
+        </p>
+        <div className="flex gap-8">
+          {avatars.map((avatar, index) => (
+            <img
               key={index}
-              className={`border-1.5 border-transparent p-1 rounded-full flex justify-center items-center transition ease-in-out duration-500 ${
-                selectedAvatar === index ? "border-2 border-primary-purple" : ""
-              }`}
-            >
-              <img
-                src={avatar}
-                alt="avatar"
-                onClick={() => {}}
-                className="h-24 transition ease-in-out duration-500"
-              />
-            </div>
-          );
-        })}
+              src={avatar}
+              alt=""
+              className={`cursor-pointer ${
+                selectedAvatar === avatar ? "border-4 border-primary-black" : ""
+              } rounded-full w-[10rem] h-[10rem]`}
+              onClick={() => setSelectedAvatar(avatar)}
+            />
+          ))}
+        </div>
+        <div className="mt-16">
+          <Button
+            text="Select an Avatar to Continue"
+            onClick={() => console.log(selectedAvatar)}
+            disabled={!selectedAvatar}
+          />
+        </div>
       </div>
-      <Button type="submit" innerText="Set as Profile picture" />
+      <img src={wave} alt="" />
     </div>
   );
 }
