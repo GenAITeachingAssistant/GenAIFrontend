@@ -8,6 +8,7 @@ function ChatInput({
   required,
   value,
   extraClasses,
+  addStudentResponse,
 }) {
   return (
     <div className="w-full bg-secondary-white rounded-full py-2 shadow-md text-secondary-black flex justify-between items-center">
@@ -22,7 +23,10 @@ function ChatInput({
         style={{ backgroundColor: "transparent" }}
         autoFocus
       />
-      <PaperAirplaneIcon className="h-6 w-6 text-primary-teal mx-4 cursor-pointer" />
+      <PaperAirplaneIcon
+        className="h-6 w-6 text-primary-teal mx-4 cursor-pointer"
+        onClick={addStudentResponse}
+      />
     </div>
   );
 }

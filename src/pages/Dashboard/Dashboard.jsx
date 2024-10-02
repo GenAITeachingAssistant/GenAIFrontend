@@ -103,10 +103,11 @@ function Dashboard() {
       />
       <ChatWindow
         {...{
-          selectedConversation,
+          conversation,
           studentResponse,
           setStudentResponse,
-          conversation,
+          setConversation,
+          selectedConversation,
           isLoadingConversation,
         }}
       />

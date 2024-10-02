@@ -1,16 +1,56 @@
-import ChatInput from "components/Input/ChatInput";
-import { capitalize } from "utils/capitalize";
-
-import robot from "assets/animations/robot.gif";
+import { useEffect, useRef, useState } from "react";
 import { ClipLoader } from "react-spinners";
+import { toast } from "react-toastify";
+
+import restClient from "restClient";
+import { capitalize } from "utils/capitalize";
+import robot from "assets/animations/robot.gif";
+import ChatInput from "components/Input/ChatInput";
 
 function ChatWindow({
-  selectedConversation,
+  conversation,
+  setConversation,
   studentResponse,
   setStudentResponse,
-  conversation,
+  selectedConversation,
   isLoadingConversation,
 }) {
+  const bottomRef = useRef(null);
+  const [isLoadingResponse, setIsLoadingResponse] = useState(false);
+
+  const getResponse = async (studentResponse) => {
+    try {
+      setIsLoadingResponse(true);
+
+      const { data } = await restClient({
+        method: "POST",
+        url: `/genai/${conversation._id}`,
+        data: {
+          studentResponse,
+        },
+      });
+
+      if (data.success) {
+        setConversation((prev) => ({
+          ...prev,
+          messages: [
+            ...prev.messages,
+            { content: data.response, role: "model" },
+          ],
+        }));
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.response.data.message);
+    } finally {
+      setIsLoadingResponse(false);
+    }
+  };
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [conversation]);
+
   if (!selectedConversation) {
     return (
       <div className="flex flex-col h-[100vh] w-full items-center justify-center">
@@ -50,6 +90,13 @@ function ChatWindow({
               <p>{message.content}</p>
             </div>
           ))}
+          <div ref={bottomRef} />
+        </div>
+      )}
+
+      {isLoadingResponse && (
+        <div className="flex justify-center pb-6">
+          <ClipLoader color="#1dbbc3" size={40} />
         </div>
       )}
 
@@ -60,6 +107,17 @@ function ChatWindow({
           placeholder="Type your message here"
           value={studentResponse}
           onChange={(e) => setStudentResponse(e.target.value)}
+          addStudentResponse={() => {
+            getResponse(studentResponse);
+            setConversation((prev) => ({
+              ...prev,
+              messages: [
+                ...prev.messages,
+                { content: studentResponse, role: "user" },
+              ],
+            }));
+            setStudentResponse("");
+          }}
         />
       </div>
     </div>
